@@ -14,7 +14,7 @@ toast,alert,loading,confirm,prompt,tip
 ### 使用
 css 手动在scss中引用 @import "~@hz-modal/lib/index";
 ````
-import Modal from '@wm/modal';
+import Modal from '@hz-modal';
 Modal.toast('xxxx');
 Modal.toast(error:xxxxx) error失败 warn提示 success成功
 Modal.alert('a',function(){
