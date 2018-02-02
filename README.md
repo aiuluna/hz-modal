@@ -8,11 +8,11 @@ toast,alert,loading,confirm,prompt,tip
 * 在package.json 中写入依赖
 ````
  "dependencies": {
-      "@wm/modal": "https://github.com/aiuluna/hz-modal.git"
+      "@hz-modal": "https://github.com/aiuluna/hz-modal.git"
   }
 ````
 ### 使用
-css 手动在scss中引用 @import "~@wm/modal/lib/index";
+css 手动在scss中引用 @import "~@hz-modal/lib/index";
 ````
 import Modal from '@wm/modal';
 Modal.toast('xxxx');
