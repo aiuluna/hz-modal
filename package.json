@@ -1,0 +1,11 @@
+{
+  "name": "hz-modal",
+  "main":  "lib/index.js",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "fde start",
+    "build": "fde build"
+  },
+  "dependencies": {
+  }
+}
