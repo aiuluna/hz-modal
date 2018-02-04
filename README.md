@@ -15,10 +15,20 @@ toast,alert,loading,confirm,prompt,tip
 css 手动在scss中引用 @import "~hz-modal/lib/index";
 ````
 import Modal from 'hz-modal';
-Modal.toast('xxxx');
-Modal.toast(error:xxxxx) error失败 warn提示 success成功
-Modal.alert('a',function(){
+````
+####alert
+````
+Modal.alert('xxx',function(){
+    //确定后执行的方法, xxx必须为string
 })
+````
+####toast
+````
+Modal.toast('xxxx');
+Modal.toast(error:'xxxx') error失败 warn提示 success成功
+````
+####loading
+````
 const modal = Modal.loading();
 Modal.closeModal(modal);
 ````
