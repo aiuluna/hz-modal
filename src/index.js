@@ -9,9 +9,10 @@ const defaultModalParams = {
 /*======================================================
  ************   Modals   ************
  ======================================================*/
-function transitionEnd ($this,callback) {
+function transitionEnd($this, callback) {
     let events = ['webkitTransitionEnd', 'transitionend', 'oTransitionEnd', 'MSTransitionEnd', 'msTransitionEnd'],
         i, j, dom = $this;
+
     function fireCallBack(e) {
         /*jshint validthis:true */
         if (e.target !== this) return;
@@ -52,19 +53,25 @@ let Modal = {
                 buttonsHTML += '<span class="modal-button' + (params.buttons[i].bold ? ' modal-button-bold' : '') + '">' + params.buttons[i].text + '</span>';
             }
         }
+        let loadingHTML = '';
+        if (params.isLoading) {
+            loadingHTML = '<i class="modalfont font-loading">&#xe61c;</i>'
+        }
+
+
         const customClassName = params.customClassName ? params.customClassName : '';
         const titleHTML = params.title ? '<div class="modal-title">' + params.title + '</div>' : '';
         const textHTML = params.text ? '<div class="modal-text">' + params.text + '</div>' : '';
         const afterTextHTML = params.afterText ? params.afterText : '';
         const noButtons = !params.buttons || params.buttons.length === 0 ? 'modal-no-buttons' : '';
         const verticalButtons = params.verticalButtons ? 'modal-buttons-vertical' : '';
-        modalHTML = '<div class="modal-inner">' + (titleHTML + textHTML + afterTextHTML) + '</div><div class="modal-buttons ' + verticalButtons + '">' + buttonsHTML + '</div>';
+        modalHTML = loadingHTML ? '<div>'+ loadingHTML +'</div>' : '<div class="modal-inner">' + (titleHTML + textHTML + afterTextHTML) + '</div><div class="modal-buttons ' + verticalButtons + '">' + buttonsHTML + '</div>';
         let modal = document.createElement('div');
         modal.className = 'modal ' + noButtons + ' ' + customClassName;
         modal.innerHTML = modalHTML;
         document.body.appendChild(modal);
         const buttons = Array.prototype.slice.call(modal.querySelectorAll('.modal-button'));
-        buttons.forEach(function (el,index) {
+        buttons.forEach(function (el, index) {
             el.addEventListener('click', function (e) {
                 if (params.buttons[index].close !== false) Modal.closeModal(modal);
                 if (params.buttons[index].onClick) params.buttons[index].onClick(modal, e);
@@ -83,14 +90,14 @@ let Modal = {
          marginTop: -Math.round(modal.height() / 2) + 'px'
          });*!/
          }*/
-        if(modal.classList.contains('J_hasMaster')){
+        if (modal.classList.contains('J_hasMaster')) {
             let div = document.createElement('div');
             div.className = 'modal-overlay modal-overlay-visible';
             document.body.appendChild(div);
         }
         modal.classList.remove('modal-out');
         modal.classList.add('modal-in');
-        transitionEnd( modal,function (e) {
+        transitionEnd(modal, function (e) {
             /*  if (modal.hasClass('modal-out')) modal.trigger('closed');
              else modal.trigger('opened');*/
         });
@@ -105,7 +112,7 @@ let Modal = {
         modal.classList.remove('modal-in');
         modal.classList.add('modal-out');
         // modal.trigger('close');
-        transitionEnd(modal,function (e) {
+        transitionEnd(modal, function (e) {
             /* if (modal.hasClass('modal-out')) modal.trigger('closed');
              else modal.trigger('opened');*/
             // modal.classList.contains('popup')? '' :modal.remove();
@@ -138,18 +145,18 @@ Modal.toast = function (text, autoHideSpeed, callbackOk) {
         callbackOk = arguments[1];
         autoHideSpeed = undefined;
     }
-    if(/^(error|warn|success):/g.test(text)){
-        text = text.replace(/^(error|warn|success):/g,function ($1,$2){
-            return '<i class="icon icon-'+$2+'"></i>'
+    if (/^(error|warn|success):/g.test(text)) {
+        text = text.replace(/^(error|warn|success):/g, function ($1, $2) {
+            return '<i class="icon icon-' + $2 + '"></i>'
         })
     }
     let modal = Modal.modal({
         customClassName: 'ui-toast',
         text: text || ''
     });
-    setTimeout(function(){
+    setTimeout(function () {
         Modal.closeModal(modal);
-    },autoHideSpeed || 3000)
+    }, autoHideSpeed || 3000)
 };
 
 /**
@@ -161,7 +168,7 @@ Modal.toast = function (text, autoHideSpeed, callbackOk) {
  */
 Modal.alert = function (text, callbackOk) {
     let params = _getParams(text, callbackOk);
-    params.customClassName ='ui-alert';
+    params.customClassName = 'ui-alert';
     // params.title = params.title || defaultModalParams.modalTitle;
     params.buttons = [
         {
@@ -184,7 +191,7 @@ Modal.alert = function (text, callbackOk) {
  */
 Modal.confirm = function (text, callbackOk, callbackCancel) {
     let params = _getParams(text, callbackOk, callbackCancel);
-    params.customClassName ='ui-confirm';
+    params.customClassName = 'ui-confirm';
     // params.title = params.title || defaultModalParams.modalTitle;
     params.buttons = [
         {
@@ -211,7 +218,7 @@ Modal.confirm = function (text, callbackOk, callbackCancel) {
 Modal.prompt = function (text, callbackOk, callbackCancel) {
     let params = _getParams(text, callbackOk, callbackCancel);
     params.title = params.title || defaultModalParams.modalTitle;
-    params.customClassName ='ui-prompt';
+    params.customClassName = 'ui-prompt';
     params.buttons = [
         {
             text: params.modalButtonCancel,
@@ -224,15 +231,22 @@ Modal.prompt = function (text, callbackOk, callbackCancel) {
         }
     ];
     params.onClick = function (modal, index) {
-        const input =  modal.querySelector('.modal-text-input');
-        const value = modal && modal.value ;
+        const input = modal.querySelector('.modal-text-input');
+        const value = modal && modal.value;
         if (index === 0 && params.callbackCancel) params.callbackCancel(value);
         if (index === 1 && params.callbackOk) params.callbackOk(value);
     };
     return Modal.modal(params);
 };
 
-/*Modal.loading = function () {
- return Modal.modal()
- };*/
+/**
+ * [loading description]
+ */
+Modal.loading = function () {
+    return Modal.modal({
+        customClassName: 'ui-loading',
+        isMaster: true,
+        isLoading: true
+    })
+};
 export default Modal;

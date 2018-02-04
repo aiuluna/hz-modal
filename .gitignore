@@ -10,5 +10,4 @@ mods/.sass-cache/
 .idea
 .cache
 .happypack
-/demo/
 /build/
