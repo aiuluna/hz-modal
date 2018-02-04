@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Modal from '../src/index'
@@ -14,11 +13,18 @@ class Demo extends React.Component {
         const modal = Modal.loading()
         setTimeout(()=> {
             Modal.closeModal(modal)
-        },3000)
+        }, 3000)
     }
 
     toast() {
         Modal.toast("toast")
+    }
+
+    tip() {
+        const modal = Modal.tip("tip")
+        setTimeout(()=> {
+           Modal.closeModal(modal)
+        }, 3000)
     }
 
     render() {
@@ -26,6 +32,7 @@ class Demo extends React.Component {
             <div onClick={this.alert.bind(this)}>alert</div>
             <div onClick={this.loading.bind(this)}>loading</div>
             <div onClick={this.toast.bind(this)}>toast</div>
+            <div onClick={this.tip.bind(this)}>tip</div>
         </div>
     }
 }
