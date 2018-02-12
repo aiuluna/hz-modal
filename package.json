@@ -1,11 +1,22 @@
 {
-  "name": "hz-modal",
-  "main":  "lib/index.js",
-  "version": "0.0.3",
-  "scripts": {
-    "start": "fde start",
-    "build": "fde build"
-  },
-  "dependencies": {
-  }
+    "name": "hz-modal",
+    "main": "lib/index.js",
+    "version": "0.0.4",
+    "keywords": [
+        "modal","toast","loading","alert","confirm","tip"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aiuluna/hz-modal.git"
+    },
+    "bugs": {
+        "url": "https://github.com/aiuluna/hz-modal/issues"
+    },
+    "homepage": "https://github.com/aiuluna/hz-modal",
+    "scripts": {
+        "start": "fde start",
+        "build": "fde build"
+    },
+    "dependencies": {
+    }
 }
